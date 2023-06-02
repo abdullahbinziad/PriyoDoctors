@@ -58,7 +58,7 @@ export const Sliders= () => {
       <div className="navigation-wrapper">
         <div ref={sliderRef} className="keen-slider">
        {
-         slidedata.map(n=> <div className="keen-slider__slide "><TestimonialCard key={n._id} content ={n}></TestimonialCard> </div>)  
+         slidedata.map(n=> <div key={n._id} className="keen-slider__slide "><TestimonialCard key={n._id} content ={n}></TestimonialCard> </div>)  
        }
   
         </div>

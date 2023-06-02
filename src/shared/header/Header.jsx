@@ -11,6 +11,8 @@ const Header = () => {
             label:'About',
             path:'/about'
         },
+       
+      
         {
             label:'Appointment',
             path:'/appointment'
@@ -26,22 +28,21 @@ const Header = () => {
       </label>
       <ul tabindex="0" className="menu menu-sm dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
        {
-menu.map(n=> <li><Link to={`${n.path}`}>{n.label}</Link></li>)
+menu.map((n,index)=> <li key={index}><Link to={`${n.path}`}>{n.label}</Link></li>)
        }
       </ul>
     </div>
     <a className="btn btn-ghost normal-case text-xl ">daisyUI</a>
   </div>
-  <div className="navbar-center hidden lg:flex">
-    <ul className="menu menu-horizontal px-1">
+  <div className="navbar-end hidden lg:flex">
+    <ul className="menu menu-horizontal items-center px-1">
     {
-menu.map(n=> <li><Link to={`${n.path}`}>{n.label}</Link></li>)
+menu.map((n,index)=> <li key={index}><Link to={`${n.path}`}>{n.label}</Link></li>)
        }
+       <button className='btn tn-ghost'>login</button>
     </ul>
   </div>
-  <div className="navbar-end">
-    <a className="btn">Button</a>
-  </div>
+
 </div>
         </div>
     );

@@ -10,6 +10,7 @@ export default {
      "doctor-primary": "#07332F",
      "doctor-btn": "#F7A582",
      "doctor-input": "#133D39",
+     "doctor-login-input": "#F3F3F3",
      'white': '#ffffff',
      'purple': '#3f3cbb',
      'midnight': '#121063',

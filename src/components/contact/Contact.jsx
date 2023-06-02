@@ -43,10 +43,8 @@ const Contact = () => {
               placeholder=""
               className="input bg-doctor-input input-bordered w-full"
             />
-            <select class="select text-white bg-doctor-input  w-full ">
-              <option disabled selected>
-                Pick the best JS framework
-              </option>
+            <select defaultValue="selected" className="select text-white bg-doctor-input  w-full ">
+            
               <option>Svelte</option>
               <option>Vue</option>
               <option>React</option>

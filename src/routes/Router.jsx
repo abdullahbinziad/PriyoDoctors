@@ -19,14 +19,8 @@ import DoctorsSingle from "../pages/doctors/doctors/DoctorsSingle";
           path: "/",
           element: <Home></Home>,
         },
-        {
-          path: "/sign-up",
-          element: <SignUp></SignUp>,
-        },
-        {
-          path: "/login",
-          element: <Login></Login>,
-        },
+      
+       
         {
           path: "/appointment",
           element: <Appointment></Appointment>,
@@ -38,6 +32,14 @@ import DoctorsSingle from "../pages/doctors/doctors/DoctorsSingle";
        
       ],
     },
+    {
+        path: "/login",
+        element: <Login></Login>,
+      },
+      {
+        path: "/sign-up",
+        element: <SignUp></SignUp>,
+      },
   ]);
 
  
