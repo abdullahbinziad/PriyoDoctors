@@ -43,9 +43,7 @@ const handleSignOut=()=>{
 //Onauth change 
 
 useEffect(() => {
-    
     const listener = onAuthStateChanged(auth, (user) => {
-   
       setUser(user);
       setLoading(false)
     });

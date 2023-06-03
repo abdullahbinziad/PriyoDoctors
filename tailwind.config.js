@@ -11,6 +11,7 @@ export default {
      "doctor-btn": "#F7A582",
      "doctor-input": "#133D39",
      "doctor-login-input": "#F3F3F3",
+     "dashboard-body": "#F1F5F9",
      'white': '#ffffff',
      'purple': '#3f3cbb',
      'midnight': '#121063',

@@ -1,7 +1,11 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useContext } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { UserContext } from '../../AuthProvider/AuthProvider';
 
 const Header = () => {
+const nevigate= useNavigate()
+
+    const {user,handleSignOut} = useContext(UserContext);
     const menu =[
         {
             label:'Home',
@@ -39,7 +43,11 @@ menu.map((n,index)=> <li key={index}><Link to={`${n.path}`}>{n.label}</Link></li
     {
 menu.map((n,index)=> <li key={index}><Link to={`${n.path}`}>{n.label}</Link></li>)
        }
-       <button className='btn tn-ghost'>login</button>
+
+       {
+        !user ? <button onClick={()=> nevigate('/login')} className='btn tn-ghost'>login</button> : <button onClick={handleSignOut} className='btn tn-ghost'>Logout</button>
+       }
+       
     </ul>
   </div>
 

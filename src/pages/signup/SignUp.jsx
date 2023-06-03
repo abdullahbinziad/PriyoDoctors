@@ -92,7 +92,17 @@ const onSubmit=(data) =>{
             </button>
           </form>
 
-          <button  className="btn btn-outline  self-center  rounded-full w-20 ">
+          <button  onClick={() => {
+                    handleSignWithGoogle()
+                      .then((data) => {
+                        console.log(data);
+                        if (data) {
+                          nevigate("/");
+                        }
+                        reset();
+                      })
+                      .catch();
+                  }}  className="btn btn-outline  self-center  rounded-full w-20 ">
             <FcGoogle className="text-xl" />{" "}
           </button>
 
