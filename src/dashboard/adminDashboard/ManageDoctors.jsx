@@ -1,11 +1,49 @@
+import axios from "axios";
 import React, { useState } from "react";
-
+import {
+ 
+    useQuery,
+  } from '@tanstack/react-query'
+import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 const ManageDoctors = () => {
 
+const nevigate = useNavigate();
 
-const [doctors,setDoctors] = useState([]);
+const { data: doctors = [], refetch } = useQuery(['doctors'], async () => {
+    const res = await axios.get('http://localhost:3000/doctors')
+    return res.data;
+})
+//delete handle
+const handleDelete = id => {
+    Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+        if (result.isConfirmed) {
 
+            axios.delete(`http://localhost:3000/doctors/${id}`)
+                .then(res => {
+                    console.log('deleted res', res.data);
+                    if (res.data.deletedCount > 0) {
+                        refetch();
+                        Swal.fire(
+                            'Deleted!',
+                            'Your file has been deleted.',
+                            'success'
+                        ).then((res)=> console.log(res))
+                    }
+                })
 
+        }
+    })
+}
+//
   return (
     <div className="p-10 m-10">
       <h1 className="text-left mb-3 text-2xl font-semibold">
@@ -23,11 +61,11 @@ const [doctors,setDoctors] = useState([]);
                     <table className="min-w-full">
                         <thead>
                             <tr>
-                                <th className="px-6 py-3 border-b border-gray-200 bg-gray-100 text-left  leading-4 font-medium text-gray-500 uppercase tracking-wider">Name</th>
-                                <th className="px-6 py-3 border-b border-gray-200 bg-gray-100 text-left  leading-4 font-medium text-gray-500 uppercase tracking-wider">Email</th>
-                                <th className="px-6 py-3 border-b border-gray-200 bg-gray-100 text-left  leading-4 font-medium text-gray-500 uppercase tracking-wider">Shift</th>
-                                <th className="px-6 py-3 border-b border-gray-200 bg-gray-100 text-left  leading-4 font-medium text-gray-500 uppercase tracking-wider">Mobile</th>
-                                <th className="px-6 py-3 border-b border-gray-200 bg-gray-100 text-left  leading-4 font-medium text-gray-500 uppercase tracking-wider"></th>
+                                <th className="px-6 py-3 border-b border-gray-200 bg-gray-100 text-left  leading-4 text-gray-500 uppercase tracking-wider">Name</th>
+                                <th className="px-6 py-3 border-b border-gray-200 bg-gray-100 text-left  leading-4 text-gray-500 uppercase tracking-wider">Email</th>
+                                <th className="px-6 py-3 border-b border-gray-200 bg-gray-100 text-left  leading-4 text-gray-500 uppercase tracking-wider">Mobile</th>
+                            
+                                <th className="px-6 py-3 border-b border-gray-200 bg-gray-100 text-right  leading-4 text-gray-500 uppercase tracking-wider">Action</th>
                               
                             </tr>
                         </thead>
@@ -37,33 +75,35 @@ const [doctors,setDoctors] = useState([]);
                             doctors.map((n,index)=>  <tr>
                             <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
                                 <div className="flex items-center">
-                                    <div className="flex-shrink-0 h-10 w-10">
-                                        <img className="h-10 w-10 rounded-full" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="" />
+                                    <div className="flex-shrink-0 ">
+                                    <div className="avatar">
+  <div className="w-16 rounded-full">
+    <img src={n.image} alt="Tailwind-CSS-Avatar-component" />
+  </div>
+</div>
                                     </div>
 
                                     <div className="ml-4">
-                                        <div className="text-sm leading-5 font-medium text-gray-900">{n.name}</div>
-                                        <div className="text-sm leading-5 text-gray-500">{n.speciality}</div>
+                                        <div className=" font-semibold leading-5 text-gray-900">{n.name}</div>
+                                        <div className=" leading-5 text-gray-500">{n.speciality}</div>
                                     </div>
                                 </div>
                             </td>
                             
                             <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                                <div className="text-sm leading-5 text-gray-900">{n.email}</div>
+                                <div className=" leading-5 text-gray-900">{n.email}</div>
                                
                             </td>
+                            <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200  leading-5 text-gray-500">{n?.mobile}</td>
+                           
 
-                            <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                                <span className="px-2 inline-flex  leading-5 font-semibold rounded-full bg-green-100 text-green-800">{n?.shift}</span>
-                            </td>
+                         
 
-                            <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-500">{n?.mobile}</td>
-
-                            <td className="px-6 py-4 whitespace-no-wrap text-right border-b border-gray-200 text-sm leading-5 font-medium">
+                            <td className="px-6 py-4 whitespace-no-wrap text-right border-b border-gray-200  leading-5 font-medium">
                                 
-                            <button className="btn btn-sm mx-2">View</button>
-                            <button className="btn btn-sm mx-2">Edit</button>
-                            <button className="btn btn-sm mx-2">Delete</button>
+                            <button onClick={()=> nevigate(`/doctors/${n._id}`)  } className="btn btn-sm mx-2">View</button>
+                            <button onClick={()=> nevigate(`/dashboard/UpdateDoctorsData/${n._id}`)} className="btn btn-sm mx-2">Edit</button>
+                            <button onClick={()=>handleDelete(n._id)} className="btn btn-sm mx-2">Delete</button>
 
                             </td>
                         </tr>

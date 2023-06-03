@@ -72,7 +72,8 @@ export const router = createBrowserRouter([
      },
      {
       path:'/dashboard/UpdateDoctorsData/:id',
-      element:<UpdateDoctorsData></UpdateDoctorsData>
+      element:<UpdateDoctorsData></UpdateDoctorsData>,
+      loader: ({params})=> fetch(`http://localhost:3000/doctors/${params.id}`)
 
      },
     ]

@@ -28,9 +28,9 @@ const Dashboard = () => {
     return (
         <div className=''>
             <div>
-                <ul className='mt-8  space-y-3'>
+                <ul className='mt-8 flex flex-col  space-y-3'>
                   {
-                    menu.map((n,index)=>   <li key={index} className='text-xl font-semibold px-8 py-2 cursor-pointer  text-neutral-600 hover:bg-dashboard-body'><Link to={`${n.path}`}>{n.label}</Link></li>)
+                    menu.map((n,index)=> <Link key={index} className='text-xl font-semibold px-8 py-2 cursor-pointer  text-neutral-600 hover:bg-dashboard-body' to={`${n.path}`}>{n.label}</Link>   )
                   }
            
                 </ul>

@@ -1,5 +1,5 @@
 import axios from "axios";
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
 
@@ -40,12 +40,29 @@ const AddDoctors = () => {
     };
 
 
+//add doctors page
+const [selectedImage, setSelectedImage] = useState(null);
+const [previewUrl, setPreviewUrl] = useState('');
+
+const handleImageChange = (e) => {
+  const file = e.target.files[0];
+  setSelectedImage(file);
+
+  const imageUrl = URL.createObjectURL(file);
+  setPreviewUrl(imageUrl);
+  console.log("Clicked");
+};
+
+
+
 
   return (
-    <div className="p-10 w-1/2 m-10">
-      <h1 className="text-left mb-3 text-2xl font-semibold"> Add doctors page</h1>
+    <div className="p-10 m-10">
+
+        <div className="flex justify-start items-center gap-2">
+      
      <div className="p-10  mx-auto shadow-sm bg-white rounded-lg">
-   
+     <h1 className="text-left mb-3 text-2xl font-semibold"> Add doctors page</h1>
      <form
         onSubmit={handleSubmit(onSubmit)}
         className="space-y-3 my-3"
@@ -79,7 +96,7 @@ const AddDoctors = () => {
           <label className="label">
             <span className=" font-bold">Specialty</span>
           </label>
-          <select required {...register("Specialty")} className="select select-bordered">
+          <select required {...register("speciality")} className="select select-bordered">
             <option disabled selected>
               Pick one
             </option>
@@ -95,7 +112,12 @@ const AddDoctors = () => {
           <label className="label">
             <span className=" font-bold">Image</span>
           </label>
-          <input required type="file" {...register("image")}  className="file-input file-input-bordered w-full " />
+          <input 
+
+           onChangeCapture={handleImageChange}
+             
+           accept="image/*"
+          required type="file" {...register("image")}  className="file-input file-input-bordered w-full " />
         </div>
         <button
           type="submit"
@@ -105,6 +127,14 @@ const AddDoctors = () => {
         </button>
       </form>
      </div>
+
+     <div className=" flex w-1/2  ">
+       {
+        previewUrl ?  <img src={previewUrl} alt="" /> :
+        <img src="https://flxtable.com/wp-content/plugins/pl-platform/engine/ui/images/image-preview.png" alt="Helo" />
+       }
+     </div>
+    </div>
     </div>
   );
 };

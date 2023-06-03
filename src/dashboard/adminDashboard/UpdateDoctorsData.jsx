@@ -1,43 +1,78 @@
 import axios from "axios";
 import React, { useRef, useState } from "react";
 import { useForm } from "react-hook-form";
+import { useLoaderData } from "react-router-dom";
 import Swal from "sweetalert2";
 
 const UpdateDoctorsData = () => {
-  const { register, handleSubmit, reset } = useForm();
-  const onSubmit = async (data) => {
-    console.log(data);
-    const formData = new FormData();
-    formData.append("image", data.image[0]);
+const data = useLoaderData() ;
+const {_id,image,name,degree,speciality
+  ,email,mobile,specializations}= data;
+console.log(data);
+// get data 
 
-    const response = await axios.post(
-      "https://api.imgbb.com/1/upload",
-      formData,
-      {
-        headers: {
-          "content-type": "multipart/form-data",
-        },
-        params: {
-          key: `${import.meta.env.VITE_IMGBB}`, // Replace with your ImgBB API key
-        },
-      }
-    );
-    const imageUrl = response.data.data.url;
-    data.image = imageUrl;
-    axios
-      .post("http://localhost:3000/doctors", data, {})
-      .then(function (response) {
-        Swal.fire("Doctor Added Successfully", "", "success");
-        reset();
-        console.log(response);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-  };
+
+  const { register, handleSubmit, reset } = useForm();
 
   const [selectedImage, setSelectedImage] = useState(null);
   const [previewUrl, setPreviewUrl] = useState('');
+
+
+  const onSubmit = async (data) => {
+    console.log(data);
+   
+if(previewUrl){
+  const formData = new FormData();
+  formData.append("image", data.image[0]);
+
+  const response = await axios.post(
+    "https://api.imgbb.com/1/upload",
+    formData,
+    {
+      headers: {
+        "content-type": "multipart/form-data",
+      },
+      params: {
+        key: `${import.meta.env.VITE_IMGBB}`, // Replace with your ImgBB API key
+      },
+    }
+  );
+  const imageUrl = response.data.data.url;
+  data.image = imageUrl  ;
+  console.log(data.image, imageUrl);
+}
+else{
+  data.image = image  ;
+}
+data.name=name;
+data.speciality=speciality;
+
+axios
+  .put(`http://localhost:3000/doctors/${_id}`, data)
+  .then((res) => res.data)
+  .then((data) => {
+    if (data.modifiedCount === 1) {
+      Swal.fire('Doctor Updated Successfully', '', 'success');
+    }
+  })
+  .catch((error) => {
+    console.error(error);
+    // Handle any errors that occur during the request
+  });
+
+  // await axios
+  //     .put(`http://localhost:3000/doctors/${_id}`, data, {})
+  //     .then(function (response) {
+  //       
+  //       reset();
+  //       console.log(response);
+  //     })
+  //     .catch(function (error) {
+  //       console.log(error);
+  //     });
+  };
+
+ 
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
@@ -59,11 +94,11 @@ const UpdateDoctorsData = () => {
           <div className="form-control w-full   ">
             <div className="avatar">
               <div className="w-60 rounded-xl">
-              {previewUrl && <img className="obj" src={previewUrl} alt="Preview" />}
+              { previewUrl ? <img className="obj" src={previewUrl} alt="Preview" /> :<img className="obj" src={image} alt={name}/>   }
 
               </div>
             </div>
-            <h1 className="text-xl text-center mt-2 font-semibold text-neutral-500">Hello Sweety</h1>
+            <h1 className="text-xl text-center mt-2 font-semibold text-neutral-500">{name}</h1>
           </div>
           <div className="form-control w-64 pb-4 ">
                 <label className="label">
@@ -93,6 +128,7 @@ const UpdateDoctorsData = () => {
                   <span className=" font-bold">Degree</span>
                 </label>
                 <input
+                 defaultValue={degree?degree:'Example Degree'}
                   required
                   {...register("degree")}
                   type="text"
@@ -104,21 +140,13 @@ const UpdateDoctorsData = () => {
                 <label className="label">
                   <span className=" font-bold">Specialty</span>
                 </label>
-                <select
-                  required
-                  {...register("Specialty")}
+                <input
+                defaultValue={speciality                }
+                  disabled
+                  {...register("speciality")}
                   className="select select-bordered"
-                >
-                  <option disabled selected>
-                    Pick one
-                  </option>
-                  <option>Teeth Orthodontics</option>
-                  <option>Cosmetic Dentisty</option>
-                  <option>Teeth Cleaning</option>
-                  <option>Cavity Protection</option>
-                  <option>Padiatric Dental</option>
-                  <option>Oral Surgery</option>
-                </select>
+                
+               />
               </div>
 
               <div className="form-control w-full col-span-2 ">
@@ -126,8 +154,9 @@ const UpdateDoctorsData = () => {
                   <span className=" font-bold">Specializations</span>
                 </label>
                 <input
+               defaultValue= { specializations ? specializations: 'etc Specializations'}
                   required
-                  {...register("Specializations")}
+                  {...register("specializations")}
                   type="text-area"
                   placeholder="Enter Specializations separate by Comma"
                   className="input py-5 w-full bg-doctor-login-input"
@@ -138,6 +167,7 @@ const UpdateDoctorsData = () => {
                   <span className=" font-bold">Email</span>
                 </label>
                 <input
+                defaultValue={email}
                   required
                   {...register("email")}
                   type="email"
@@ -152,9 +182,10 @@ const UpdateDoctorsData = () => {
                   <span className=" font-bold">Mobile</span>
                 </label>
                 <input
+                defaultValue={ mobile? mobile: '017'}
                   required
                   {...register("mobile")}
-                  type="email"
+                  type="text"
                   placeholder="Enter Doctor's Moile"
                   className="input py-5 w-full bg-doctor-login-input"
                 />
