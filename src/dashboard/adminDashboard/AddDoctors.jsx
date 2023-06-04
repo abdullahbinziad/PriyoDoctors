@@ -130,8 +130,8 @@ const handleImageChange = (e) => {
 
      <div className=" flex w-1/2  ">
        {
-        previewUrl ?  <img src={previewUrl} alt="" /> :
-        <img src="https://flxtable.com/wp-content/plugins/pl-platform/engine/ui/images/image-preview.png" alt="Helo" />
+        previewUrl ?  <img className="w-64 object-contain max-h-72" src={previewUrl} alt="" /> :
+        <img className="" src="https://flxtable.com/wp-content/plugins/pl-platform/engine/ui/images/image-preview.png" alt="Helo" />
        }
      </div>
     </div>

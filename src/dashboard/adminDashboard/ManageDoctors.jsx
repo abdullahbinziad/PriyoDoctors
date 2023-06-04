@@ -103,7 +103,7 @@ const handleDelete = id => {
                                 
                             <button onClick={()=> nevigate(`/doctors/${n._id}`)  } className="btn btn-sm mx-2">View</button>
                             <button onClick={()=> nevigate(`/dashboard/UpdateDoctorsData/${n._id}`)} className="btn btn-sm mx-2">Edit</button>
-                            <button onClick={()=>handleDelete(n._id)} className="btn btn-sm mx-2">Delete</button>
+                            <button onClick={()=>handleDelete(n._id)} className="btn btn-sm btn-secondary mx-2">Delete</button>
 
                             </td>
                         </tr>
