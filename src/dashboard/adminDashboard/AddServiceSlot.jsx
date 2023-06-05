@@ -55,7 +55,7 @@ data.image = findImg.image;
   return (
     <div className="p-10 m-6">
       <div className="flex  gap-6 2xl:gap-20">
-        <div className="p-10 2xl:w-1/3 w-2/5 mx-start shadow-sm bg-white rounded-lg">
+        <div className="p-10 2xl:w-1/3 w-1/2 mx-start shadow-sm bg-white rounded-lg">
           <h1 className="text-left mb-3 text-2xl font-semibold">
             {" "}
             Add Service Slot
@@ -169,7 +169,7 @@ data.image = findImg.image;
           </form>
         </div>
 
-        <div className=" flex w-1/2 h-[700px] overflow-y-auto ">
+        <div className=" flex w-full 2xl:h-[700px] h-[600px] overflow-y-auto ">
          
 <AllSlots reaload={reload}></AllSlots>
          

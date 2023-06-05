@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 const Dashboard = () => {
   const menu = [
@@ -37,13 +37,15 @@ const Dashboard = () => {
       <div>
         <ul className="mt-8 flex flex-col  space-y-3">
           {menu.map((n, index) => (
-            <Link
+            <NavLink
               key={index}
-              className=" font-semibold px-8 py-2 cursor-pointer  text-neutral-600 hover:bg-dashboard-body"
+              className= {({ isActive, isPending }) =>
+              isPending ? "pending" : isActive ? "bg-dashboard-body px-8 py-2 font-bold text-xl" : " font-semibold px-8 py-2 cursor-pointer  text-neutral-600 hover:bg-dashboard-body"
+            } 
               to={`${n.path}`}
             >
               {n.label}
-            </Link>
+            </NavLink>
           ))}
         </ul>
       </div>

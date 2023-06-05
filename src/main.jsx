@@ -7,6 +7,7 @@ import { router } from "./routes/Router.jsx";
 import AuthProvider from "./AuthProvider/AuthProvider.jsx";
 import swal from 'sweetalert2/dist/sweetalert2.all.min.js'
 
+
 import {
   QueryClient,
   QueryClientProvider,

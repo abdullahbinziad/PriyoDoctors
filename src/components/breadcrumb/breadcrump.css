@@ -1,0 +1,6 @@
+#breadcrump{
+    background-image: url('../../assets/shape/capsule.png'),url('../../assets/shape/ushape.png');
+background-position: right,2px 46px;
+
+background-repeat: no-repeat;
+}

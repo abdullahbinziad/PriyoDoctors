@@ -6,8 +6,8 @@ import Swal from "sweetalert2";
 const AllAppoinments = () => {
   const nevigate = useNavigate();
 
-  const { data: doctors = [], refetch } = useQuery(["doctors"], async () => {
-    const res = await axios.get("http://localhost:3000/doctors");
+  const { data: appointments = [], refetch } = useQuery(["appointments"], async () => {
+    const res = await axios.get("http://localhost:3000/appointments");
     return res.data;
   });
   //delete handle
@@ -22,7 +22,7 @@ const AllAppoinments = () => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        axios.delete(`http://localhost:3000/doctors/${id}`).then((res) => {
+        axios.delete(`http://localhost:3000/appointments/${id}`).then((res) => {
           console.log("deleted res", res.data);
           if (res.data.deletedCount > 0) {
             refetch();
@@ -65,17 +65,17 @@ const AllAppoinments = () => {
                       {thead.map((n, index) => (
                         <th
                           key={index}
-                          className="px-6 py-3 border-b border-gray-200 bg-gray-100 text-left  leading-4 text-gray-500 uppercase tracking-wider"
+                          className="px-6 py-3 text-sm border-b border-gray-200 bg-gray-100 text-left  leading-4 text-gray-500 uppercase tracking-wider"
                         >
                           {n}
                         </th>
                       ))}
                     </tr>
-                  </thead>
+                  </thead> 
 
                   <tbody className="bg-white">
-                    {doctors.map((n, index) => (
-                      <tr  className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                    {appointments.map((n, index) => (
+                      <tr  className="px-6 py-4 whitespace-no-wrap items-center border-b border-gray-200">
                         <td>0{index+1}</td>
                         <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
                           <div className="flex items-center">
@@ -114,12 +114,10 @@ const AllAppoinments = () => {
                         </td>
                         
 
-                        <td className="px-6 py-4 whitespace-no-wrap text-right border-b border-gray-200  leading-5 font-medium">
+                        <td className="px-6 py-4 flex self-center whitespace-no-wrap text-right  leading-5 font-medium">
                       
                           <button
-                            onClick={() =>
-                              nevigate(`/dashboard/UpdateDoctorsData/${n._id}`)
-                            }
+                           
                             className="btn text-white btn-xs bg-doctor-btn mx-2"
                           >
                             Paid
