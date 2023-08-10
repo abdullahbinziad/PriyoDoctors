@@ -52,7 +52,7 @@ const onSubmit=(data) =>{
           <h1 className="text-3xl font-bold text-center mb-10 ">
             Sign Up to Doc House
           </h1>
-          <form onSubmit={handleSubmit(onSubmit)} className="space-y-3 my-3" action="">
+          <form onSubmit={()=>handleSubmit(onSubmit)} className="space-y-3 my-3" action="">
             <div className="form-control w-full ">
               <label className="label">
                 <span className=" font-bold">Name</span>

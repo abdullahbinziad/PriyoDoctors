@@ -1,8 +1,12 @@
 import React from "react";
 import Dashboard from "../dashboard/dashboard/Dashboard";
 import { Outlet } from "react-router-dom";
+import UserDashboard from "./UserDashboard";
 
 const DashboardLayouts = () => {
+
+const admin = false;
+
   return (
     <div>
       <div className=" bg-doctor-primary text-white ">
@@ -78,7 +82,8 @@ const DashboardLayouts = () => {
 
 
 <div className=" w-1/5  h-screen">
-<Dashboard></Dashboard>
+{ !admin  && <Dashboard></Dashboard>}
+<UserDashboard></UserDashboard>
 </div>
 <div className="bg-dashboard-body w-screen h-screen">
 

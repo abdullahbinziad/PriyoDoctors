@@ -15,6 +15,7 @@ import ManageDoctors from "../dashboard/adminDashboard/ManageDoctors";
 import UpdateDoctorsData from "../dashboard/adminDashboard/UpdateDoctorsData";
 import AddServiceSlot from "../dashboard/adminDashboard/AddServiceSlot";
 import AllAppoinments from "../dashboard/adminDashboard/AllAppoinments";
+import MyAppoinments from "../dashboard/userDashboard/MyAppointment";
 
 export const router = createBrowserRouter([
   {
@@ -88,6 +89,13 @@ export const router = createBrowserRouter([
       loader: ({params})=> fetch(`http://localhost:3000/doctors/${params.id}`)
 
      },
+     {
+      path:'/dashboard/my-appointments',
+      element:<MyAppoinments></MyAppoinments>
+    
+
+     },
     ]
-  }
+  },
+ 
 ]);

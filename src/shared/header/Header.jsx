@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { UserContext } from '../../AuthProvider/AuthProvider';
+import logo from '../../assets/logo.png' ;
 
 const Header = () => {
 const nevigate= useNavigate()
@@ -21,6 +22,10 @@ const nevigate= useNavigate()
             label:'Appointment',
             path:'/appointment'
         },
+        {
+            label:'My Dashboard',
+            path:'/dashboard'
+        },
     ]
     return (
         <div className=' bg-doctor-primary py-4 text-neutral-100'>
@@ -36,7 +41,7 @@ menu.map((n,index)=> <li key={index}><Link to={`${n.path}`}>{n.label}</Link></li
        }
       </ul>
     </div>
-    <a className="btn btn-ghost normal-case text-xl ">daisyUI</a>
+   <Link to="/"> <img src={logo} alt="logo" /></Link>
   </div>
   <div className="navbar-end hidden lg:flex">
     <ul className="menu menu-horizontal items-center px-1">

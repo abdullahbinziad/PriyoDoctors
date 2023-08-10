@@ -4,6 +4,7 @@ import { useForm } from 'react-hook-form';
 import Swal from 'sweetalert2';
 import Modal from './Modal';
 import { UserContext } from '../../AuthProvider/AuthProvider';
+import { format } from 'date-fns';
 
 const SlotsCard = (props) => {
 
@@ -28,12 +29,16 @@ console.log(data);
   };
 
   const handleSubmit = (data) => {
+
+    const bookingDate= format(new Date(),"yyyy-MM-dd");
 const appointmentData= {
     patientName:data.patientName,
     patientAge:data.patientAge,
     mobile:data.patientNumber,
     timeslot:data.timeslot,
     slotTitle:speciality,
+    bookingDate: bookingDate,
+    appointmentDate: date,
     doctor:doctor,
     doctorTitle:degree,
     fees: fees,
